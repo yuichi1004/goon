@@ -377,7 +377,7 @@ func freeSerializationDecoder(sd *serializationDecoder) {
 
 // serializeStruct takes a struct and serializes it to portable bytes.
 func serializeStruct(src interface{}) ([]byte, error) {
-	if src == nil {
+	if src == nil && EnableNagativeCache {
 		return []byte{serializationStateEmpty}, nil
 	}
 
@@ -591,7 +591,7 @@ func deserializeStruct(dst interface{}, b []byte) error {
 		return fmt.Errorf("goon: Expected struct, got instead: %v", k)
 	}
 
-	if header := b[0]; header == serializationStateEmpty {
+	if header := b[0]; header == serializationStateEmpty && EnableNagativeCache {
 		return datastore.ErrNoSuchEntity
 	} else if header != serializationStateNormal {
 		return fmt.Errorf("goon: Unrecognized cache header: %v", header)

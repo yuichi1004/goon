@@ -51,6 +51,9 @@ var (
 	// MemcacheGetTimeout is the amount of time to wait for all memcache Get
 	// requests.
 	MemcacheGetTimeout = time.Millisecond * 10
+
+	// Enables nagative cache. Nagative cache does not work when puting/getting new data concurrently
+	EnableNagativeCache = true
 )
 
 // Goon holds the app engine context and the request memory cache.
