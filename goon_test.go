@@ -943,6 +943,10 @@ func verifyMigration(t *testing.T, g *Goon, migA *MigrationA, method int, debugI
 			t.Errorf("%v > Unexpected error on Get: %v", debugInfo, err)
 			return
 		}
+		if err := g.Get(migB); err != nil && (IgnoreFieldMismatch || !errFieldMismatch(err)) {
+			t.Errorf("%v > Unexpected error on Get: %v", debugInfo, err)
+			return
+		}
 		break
 	case migrationMethodGetAll:
 		migBs := []*MigrationB{}
